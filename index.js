@@ -1,6 +1,6 @@
 var crypto = require('crypto');
 
-// Create `n` SHA1 hash streams
+// Create `n` SHA1 hashes
 var createHashes = function(n) {
   var hashes = [];
   for (i = 0; i < n; i++)
