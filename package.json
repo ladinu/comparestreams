@@ -1,0 +1,31 @@
+{
+  "name": "comparestreams",
+  "version": "0.0.0",
+  "description": "Check if streams are eqal",
+  "main": "index.js",
+  "dependencies": {
+
+  },
+  "devDependencies": {
+      "mocha": "*"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ladinu/comparestreams.git"
+  },
+  "keywords": [
+    "compare",
+    "streams",
+    "equality"
+  ],
+  "author": "Ladinu Chandrasinghe",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "gitHead": "65a5d651d71cbaf5ae2c40c569a2bed86d0919d4"
+}
