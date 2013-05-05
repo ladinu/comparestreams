@@ -71,7 +71,7 @@ function equalStreams() {
   var streams = args;
 
   if (typeof callback !== 'function') {
-    throw new Error("Must give a callback");
+    return new Error("Must give a callback");
   } else if (streams.length < 2){
     callback(new Error("must give 2 or more streams"));
   }
