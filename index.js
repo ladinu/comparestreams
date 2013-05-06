@@ -15,7 +15,7 @@ var addErrorHandlers = function(streams, callback) {
   streams.forEach(function(stream) {
     stream.once('error', function() {
       ++lock;
-      if (lock === 1) callback(new Error('A stream emitted and error'));
+      if (lock === 1) callback(null, new Error('A stream emitted and error'));
     });
   });
 }
@@ -39,7 +39,7 @@ var checkHashes = function (hashes, callback) {
     var hexHash = hashes[i].digest('hex');
     if (hexHashSample !== hexHash) isEqual = false;
   }
-  if (isEqual) callback(); else callback(new Error('Streams not equal'));
+  if (isEqual) callback(true, null); else callback(false, null);
 }
 
 
@@ -71,13 +71,14 @@ function equalStreams() {
   var streams = args;
 
   if (typeof callback !== 'function') {
-    return new Error("Must give a callback");
+    throw new Error("Must give a callback");
   } else if (streams.length < 2){
-    callback(new Error("must give 2 or more streams"));
+    callback(null, new Error("must give 2 or more streams"));
+    return;
   }
 
   if (!areReadable(streams)) {
-    callback(new Error("Must provide readable streams"));
+    callback(null, new Error("Must provide readable streams"));
   } else {
     areEqual(streams, callback);
   }

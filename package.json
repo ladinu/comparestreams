@@ -1,13 +1,13 @@
 {
-  "name": "comparestreams",
+  "name": "equal-streams",
   "version": "0.0.0",
   "description": "Check if streams are eqal",
   "main": "index.js",
   "dependencies": {
-
   },
   "devDependencies": {
-      "mocha": "*"
+      "mocha": "*",
+      "uuid": "*"
   },
   "directories": {
     "test": "test"
