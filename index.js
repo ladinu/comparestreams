@@ -15,7 +15,7 @@ var addErrorHandlers = function(streams, callback) {
   streams.forEach(function(stream) {
     stream.once('error', function() {
       ++lock;
-      if (lock === 1) callback(null, new Error('A stream emitted and error'));
+      if (lock === 1) callback(null, new Error('A stream emitted an error'));
     });
   });
 }
