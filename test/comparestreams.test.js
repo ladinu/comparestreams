@@ -9,8 +9,11 @@ var equal = require('../');
 var namespace;
 namespace = uuid.unparse(uuid.v4(null, new Buffer(16), 0));
 
+var garbage = [];
+
 var write = function(fname) {
   var fname = path.join(os.tmpdir(), namespace + fname);
+  garbage.push(fname);
   return fs.createWriteStream(fname);
 }
 
@@ -19,6 +22,11 @@ var read = function(fname) {
   return fs.createReadStream(fname);
 }
 
+after(function() {
+  garbage.forEach(function(path) {
+    fs.unlinkSync(path);
+  });
+});
 
 describe('equal-streams', function() {
 
