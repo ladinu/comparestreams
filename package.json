@@ -1,6 +1,6 @@
 {
   "name": "equal-streams",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Check if streams are eqal",
   "main": "index.js",
   "dependencies": {

@@ -3,7 +3,7 @@ var crypto = require('crypto');
 // Create `n` SHA1 hashes
 var createHashes = function(n) {
   var hashes = [];
-  for (i = 0; i < n; i++)
+  for (var i = 0; i < n; i++)
     hashes.push( crypto.createHash('sha1') );
   return hashes;
 }
@@ -35,7 +35,7 @@ var checkHashes = function (hashes, callback) {
   var isEqual = true;
   var hexHashSample = hashes[0].digest('hex');
   
-  for (i = 1; (i < hashes.length) && isEqual; i++) {
+  for (var i = 1; (i < hashes.length) && isEqual; i++) {
     var hexHash = hashes[i].digest('hex');
     if (hexHashSample !== hexHash) isEqual = false;
   }
