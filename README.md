@@ -12,7 +12,7 @@ $ npm install equal-streams
 From source:
 ```sh
 $ git clone https://github.com/ladinu/equal-streams.git
-$ cd equal-streams
+$ cd equal-streams/
 $ npm link
 ```
 
@@ -42,7 +42,19 @@ compare(google, bing, function(equal, err) {
 
 ## API
 ### equalStreams(stream1, stream2, stream3, ..., callback)
+  - Must provide at least two readable streams and a callback. If one of the streams
+    emit an `error`, callback will return with an error.
 
+  - callback will return with a `boolean` or an `error`
+
+
+## Testing
+
+```sh
+$ cd equal-streams/
+$ npm install
+$ npm test
+```
 
 ## License
 
