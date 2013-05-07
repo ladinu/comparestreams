@@ -29,8 +29,6 @@ compare(streamOne, streamTwo, function(equal, err) {
   if (equal) console.log('streamOne === streamTwo');
 });
 
-
-
 var google = request('http://google.com');
 var bing   = request('http://bing.com');
 
