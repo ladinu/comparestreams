@@ -23,8 +23,8 @@ var addErrorHandlers = function(streams, callback) {
 // Check if a list of streams are readable
 var areReadable = function(streams) {
   var readable = true;
-  streams.forEach(function(i) {
-    if (!i.readable)
+  streams.forEach(function(stream) {
+    if (!stream.readable)
       readable = false;
   });
   return readable;
