@@ -4,6 +4,7 @@
   "description": "Check if streams are eqal",
   "main": "index.js",
   "dependencies": {
+    "hashstream": "*"
   },
   "devDependencies": {
       "mocha": "*",
