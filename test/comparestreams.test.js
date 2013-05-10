@@ -53,7 +53,7 @@ describe('equal-streams', function() {
   });
 
   it('should throw error when a stream is not readable', function(done) {
-    var ws = write('tf0');
+    var ws = write('tf2');
     var rs = read('tf0');
     rs.pipe(ws);
 
