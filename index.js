@@ -9,7 +9,7 @@ var checkHashes = function (hashes, callback) {
   for (var i = 1; (i < hashes.length) && isEqual; i++) {
     if (hashSample !== hashes[i]) isEqual = false;
   }
-  if (isEqual) callback(true, null); else callback(false, null);
+  if (isEqual) callback(null, true); else callback(null, false);
 }
 
 module.exports = equalStreams;
@@ -23,7 +23,7 @@ function equalStreams() {
   if (typeof callback !== 'function') {
     throw new Error("Must give a callback");
   } else if (streams.length < 2){
-    callback(null, new Error("must give 2 or more streams"));
+    callback(new Error("must give 2 or more streams"), null);
     return;
   }
 

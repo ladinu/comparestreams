@@ -31,7 +31,7 @@ after(function() {
 describe('equal-streams', function() {
 
   it('should throw error when only callback is given', function(done) {
-    equal(function (result, err) {
+    equal(function (err, result) {
       if (err) 
         done()
       else
@@ -44,7 +44,7 @@ describe('equal-streams', function() {
   });
 
   it('should throw error when only 1 stream given with callback', function(done) {
-    equal( read('tf0'), function(result, err) {
+    equal( read('tf0'), function(err, result) {
       if (err)
         done()
       else
@@ -57,7 +57,7 @@ describe('equal-streams', function() {
     var rs = read('tf0');
     rs.pipe(ws);
 
-    equal(rs, ws, function(result, err) {
+    equal(rs, ws, function(err, result) {
       if (err)
         done()
       else
@@ -66,7 +66,7 @@ describe('equal-streams', function() {
   });
 
   it('should evaluate two equal streams to be equal', function(done) {
-    equal( read('tf0'), read('tf0'), function(result, err) {
+    equal( read('tf0'), read('tf0'), function(err, result) {
       if (err)
         done(err);
       else
@@ -75,7 +75,7 @@ describe('equal-streams', function() {
   });
 
   it('should evaluate two inequal streams to be inequal', function(done) {
-    equal( read('tf0'), read('tf1'), function(result, err) {
+    equal( read('tf0'), read('tf1'), function(err, result) {
       if (err)
         done()
       else
@@ -85,7 +85,7 @@ describe('equal-streams', function() {
   });
 
   it('shoudl evaluate two or more equal streams to be equal', function(done) {
-    equal( read('tf0'), read('tf0'), read('tf0'), function(result, err) {
+    equal( read('tf0'), read('tf0'), read('tf0'), function(err, result) {
       if (err)
         done(err);
       else
@@ -94,7 +94,7 @@ describe('equal-streams', function() {
   });
 
   it('should evaluate two or more inequal streams to be inequal', function(done) {
-    equal( read('tf0'), read('tf1'), read('tf0'), function(result, err) {
+    equal( read('tf0'), read('tf1'), read('tf0'), function(err, result) {
       if (err)
         done(err);
       else
