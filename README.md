@@ -24,7 +24,7 @@ var compare = require('equal-streams');
 var streamOne = request('http://example.com');
 var streamTwo = request('http://example.com');
 
-compare(streamOne, streamTwo, function(equal, err) {
+compare(streamOne, streamTwo, function(err, equal) {
   if (err) return console.log(err);
   if (equal) console.log('streamOne === streamTwo');
 });
@@ -32,7 +32,7 @@ compare(streamOne, streamTwo, function(equal, err) {
 var google = request('http://google.com');
 var bing   = request('http://bing.com');
 
-compare(google, bing, function(equal, err) {
+compare(google, bing, function(err, equal) {
   if (err) return console.log(err);
   if (!equal) console.log('google !== bing');
 });
@@ -43,7 +43,7 @@ compare(google, bing, function(equal, err) {
   - Must provide at least two readable streams and a callback. If one of the streams
     emit an `error`, callback will return with an error.
 
-  - callback will return with a `boolean` or an `error`
+  - `callback` will return with a `boolean` or an `error` (`callback(err, equal)`)
 
 
 ## Testing

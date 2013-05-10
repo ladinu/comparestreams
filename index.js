@@ -1,65 +1,15 @@
-var crypto = require('crypto');
-
-// Create `n` SHA1 hashes
-var createHashes = function(n) {
-  var hashes = [];
-  for (var i = 0; i < n; i++)
-    hashes.push( crypto.createHash('sha1') );
-  return hashes;
-}
-
-
-// If a single stream emit an error, then streams aren't equal
-var addErrorHandlers = function(streams, callback) {
-  var lock = 0;
-  streams.forEach(function(stream) {
-    stream.once('error', function() {
-      ++lock;
-      if (lock === 1) callback(null, new Error('A stream emitted an error'));
-    });
-  });
-}
-
-// Check if a list of streams are readable
-var areReadable = function(streams) {
-  var readable = true;
-  streams.forEach(function(stream) {
-    if (!stream.readable)
-      readable = false;
-  });
-  return readable;
-}
+var hashStream = require('hashstream');
 
 
 var checkHashes = function (hashes, callback) {
-  var isEqual = true;
-  var hexHashSample = hashes[0].digest('hex');
+
+  var isEqual    = true;
+  var hashSample = hashes[0];
   
   for (var i = 1; (i < hashes.length) && isEqual; i++) {
-    var hexHash = hashes[i].digest('hex');
-    if (hexHashSample !== hexHash) isEqual = false;
+    if (hashSample !== hashes[i]) isEqual = false;
   }
-  if (isEqual) callback(true, null); else callback(false, null);
-}
-
-
-var areEqual = function(streams, callback) {
-  addErrorHandlers(streams, callback);
-
-  var hashes  = createHashes(streams.length);
-  var lock    = 0;
-  var lockCap = streams.length;
-
-  streams.forEach(function(stream, index) {
-    stream.on('data', function(data) {
-      hashes[index].update(data);
-    });
-
-    stream.once('end', function() {
-      ++lock;
-      if (lock === lockCap) checkHashes(hashes, callback);
-    });
-  });
+  if (isEqual) callback(null, true); else callback(null, false);
 }
 
 module.exports = equalStreams;
@@ -73,14 +23,23 @@ function equalStreams() {
   if (typeof callback !== 'function') {
     throw new Error("Must give a callback");
   } else if (streams.length < 2){
-    callback(null, new Error("must give 2 or more streams"));
+    callback(new Error("must give 2 or more streams"), null);
     return;
   }
 
-  if (!areReadable(streams)) {
-    callback(null, new Error("Must provide readable streams"));
-  } else {
-    areEqual(streams, callback);
+  var hashes  = [];
+  var lock    = 0;
+  var lockCap = streams.length;
+
+  var hashCallback = function(err, hash) {
+    if (err) return callback(err);
+    hashes.push(hash);
+    ++lock;
+    if (lock === lockCap) checkHashes(hashes, callback);
   }
+
+  streams.forEach(function(stream, index) {
+    hashStream(stream, hashCallback);
+  });
 }
 
