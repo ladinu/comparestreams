@@ -15,9 +15,8 @@ var checkHashes = function (hashes, callback) {
 module.exports = equalStreams;
 function equalStreams() {
   var args     = Array.prototype.slice.call(arguments);
-  var callback = args[args.length > 0 ? args.length -1: 0]; // Last item of args
+  var callback = args.pop(); // Last item of args
 
-  args.pop();
   var streams = args;
 
   if (typeof callback !== 'function') {
