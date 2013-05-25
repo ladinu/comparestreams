@@ -43,12 +43,20 @@ describe('equal-streams', function() {
     assert.throws(function() {equal()});
   });
 
+  it('should allow streams to be passed as a list', function(done) {
+    var streamList = [read('tf0'), read('tf1'), read('tf0')];
+    equal(streamList, done);
+  });
+
+  it('should throw error when 1 stream (passed as an array) is given with callback', function(done) {
+    equal([read('tf0')], function(err, result) {
+      if (err) done(); else done(new Error('Was expecting error'));
+    });
+  });
+
   it('should throw error when only 1 stream given with callback', function(done) {
     equal( read('tf0'), function(err, result) {
-      if (err)
-        done()
-      else
-        done(new Error('Was expecting an error'));
+      if (err) done(); else done(new Error('Was expecting an error'));
     });
   });
 

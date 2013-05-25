@@ -14,10 +14,11 @@ var checkHashes = function (hashes, callback) {
 
 module.exports = equalStreams;
 function equalStreams() {
-  var args     = Array.prototype.slice.call(arguments);
-  var callback = args.pop(); // Last item of args
+  var streams  = Array.prototype.slice.call(arguments);
+  var callback = streams.pop(); // Last item of args
 
-  var streams = args;
+  if (streams.length === 1 && streams[0] instanceof Array)
+    streams = streams[0];
 
   if (typeof callback !== 'function') {
     throw new Error("Must give a callback");
