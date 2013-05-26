@@ -39,9 +39,12 @@ compare(google, bing, function(err, equal) {
 ```
 
 ## API
-### equalStreams(stream1, stream2, stream3, ..., callback)
+### equalStreams([streams], callback)
   - Must provide at least two readable streams and a callback. If one of the streams
     emit an `error`, callback will return with an error.
+
+  - `streams` can be a single array of streams (`equalStreams([s1, s2, s3], callback)`) or multiple streams 
+    i.e `equalStreams(s1, s2, s3, callback)`
 
   - `callback` will return with a `boolean` or an `error` (`callback(err, equal)`)
 
